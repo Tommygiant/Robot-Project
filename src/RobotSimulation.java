@@ -97,7 +97,7 @@ public class RobotSimulation {
             for (Robot nonActivatedRobot : nonActivatedRobotsList) {
 
                 if (robot.x == nonActivatedRobot.x && robot.y == nonActivatedRobot.y) {
-                    String touchMessage = "Robot " + "robotIndex" + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")";
+                    String touchMessage = "Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")";
                     logger.log(Level.INFO, touchMessage);
                     //System.out.println("Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")");
                 }
