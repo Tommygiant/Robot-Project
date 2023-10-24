@@ -20,7 +20,8 @@ A simple Java program to simulate the robot movements on a grid
 1. Correct reading of data according to system input
 2. Ability to accurately record robot movement paths and collision position information
 3. Multiple activated robots can be sequentially moving and the final position information as expected output
-4. **Check for invalid input to avoid out of bounds**
+4. Ability to activate the non-activated robot after touching
+5. **Check for invalid input to avoid out of bounds**
 
 ## Workflow Diagram
 ![Screen Shot 2023-10-22 at 8 07 12 pm](https://github.com/Tommygiant/Robot-Project/assets/78850099/ff60e911-5b07-49b3-a90a-cce494eef7b0)
@@ -52,3 +53,7 @@ A simple Java program to simulate the robot movements on a grid
 - Handle multi activated robots sequential movement
 ![Screen Shot 2023-10-22 at 3 41 43 pm](https://github.com/Tommygiant/Robot-Project/assets/78850099/e94fbf99-b264-45a0-9e05-ba2e661522eb)
 
+### v0.3 (2023/10/24 18:00 +18:30)
+- Robot movements direction updated
+- Update data format of activated robot initial position
+- Update simulation method ensure non-activated robot can be activated by touching
