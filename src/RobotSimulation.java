@@ -9,6 +9,7 @@ import java.util.logging.SimpleFormatter;
 public class RobotSimulation {
     private static int robotIndex = 0;
 
+
     public static void main(String[] args) {
 
         // input
@@ -18,21 +19,29 @@ public class RobotSimulation {
         String grid = scanner.nextLine();
         int n = Integer.parseInt(grid);
 
-        // activated robots set
+        // activated robot initial position
         String initialPosition = scanner.nextLine();
-        String[] activatedRobots = initialPosition.split(" ");
-        List<Robot> activatedRobotsList = new ArrayList<>();
+//        String[] activatedRobots = initialPosition.split(" ");
+//        List<Robot> activatedRobotsList = new ArrayList<>();
 
-        for (String position : activatedRobots) {
-            String[] parts = position.split(",");
-            int startX = Integer.parseInt(parts[0]);
-            int startY = Integer.parseInt(parts[1]);
-            if (startX >= n || startY >= n){
-                System.out.println("Invalid starting position. The starting position must be within the grid boundaries.");
-                return;
-            }
-            activatedRobotsList.add(new Robot(startX, startY));
-        }
+//        for (String position : activatedRobots) {
+//            String[] parts = position.split(",");
+//            int startX = Integer.parseInt(parts[0]);
+//            int startY = Integer.parseInt(parts[1]);
+//            if (startX >= n || startY >= n){
+//                System.out.println("Invalid starting position. The starting position must be within the grid boundaries.");
+//                return;
+//            }
+//            activatedRobotsList.add(new Robot(startX, startY));
+//        }
+        String[] activatedRobots = initialPosition.split(",");
+
+        int startX = Integer.parseInt(activatedRobots[0]);
+        int startY = Integer.parseInt(activatedRobots[1]);
+
+        List<Robot> activatedRobotsList = new ArrayList<>();
+        activatedRobotsList.add(new Robot(startX, startY));
+
 
         // non-activated robots set
 
@@ -56,10 +65,39 @@ public class RobotSimulation {
 
         List<Robot> activatedRobotsPosition = new ArrayList<>();
 
-        for (Robot activatedRobotInitialPosition : activatedRobotsList){
-            Robot activatedRobotFinalPosition = RobotSimulationProcess(n, activatedRobotInitialPosition, nonActivatedRobotsList, movement);
+//        for (Robot activatedRobotInitialPosition : activatedRobotsList){
+//
+//            List<Robot> activatedRobotFinalPosition = RobotSimulationProcess(n, activatedRobotInitialPosition, nonActivatedRobotsList, movement);
+//            robotIndex++;
+//
+//            int len = activatedRobotFinalPosition.size();//3
+//            activatedRobotsList.remove(activatedRobotInitialPosition);
+//            System.out.println(activatedRobotsList);
+//            activatedRobotsList.add(activatedRobotFinalPosition.get(0));
+//            System.out.println(activatedRobotsList);
+////            nonActivatedRobotsList.remove(activatedRobotFinalPosition.get(0));
+//
+////            for (int i = 0; i < len-1; i++){
+////                activatedRobotsList.add(activatedRobotFinalPosition.get(i));
+////                nonActivatedRobotsList.remove(activatedRobotFinalPosition.get(i));
+////            }
+//            activatedRobotsPosition.add(activatedRobotFinalPosition.get(len-1));
+//        }
+        while (!activatedRobotsList.isEmpty()){
+            Robot activatedRobotInitialPosition = activatedRobotsList.get(0);
+            activatedRobotsList.remove(activatedRobotInitialPosition);
+            List<Robot> activatedRobotFinalPosition = RobotSimulationProcess(n, activatedRobotInitialPosition, nonActivatedRobotsList, movement);
             robotIndex++;
-            activatedRobotsPosition.add(activatedRobotFinalPosition);
+
+            int len = activatedRobotFinalPosition.size();//3
+            for (int i = 0; i < len-1; i++){
+                activatedRobotsList.add(activatedRobotFinalPosition.get(i));
+                nonActivatedRobotsList.remove(activatedRobotFinalPosition.get(i));
+            }
+            activatedRobotsPosition.add(activatedRobotFinalPosition.get(len-1));
+//            System.out.println(activatedRobotsPosition);
+//            System.out.println(activatedRobotsList);
+
         }
 
         // Output
@@ -70,7 +108,7 @@ public class RobotSimulation {
 
     }
 
-    public static Robot RobotSimulationProcess(int n, Robot robot, List<Robot> nonActivatedRobotsList, String movement){
+    public static List<Robot> RobotSimulationProcess(int n, Robot robot, List<Robot> nonActivatedRobotsList, String movement){
         Logger logger = Logger.getLogger("RobotSimulation");
         FileHandler fileHandler;
 
@@ -85,26 +123,32 @@ public class RobotSimulation {
             return null;
         }
 
+        List<Robot> activatedLocation = new ArrayList<>();
+
         for (char move : movement.toCharArray()) {
 
 
             robot.move(move, n);
-            String logMessage = "Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")";
-            logger.log(Level.INFO, logMessage);
-            //System.out.println("Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")");
+//            String logMessage = "Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")";
+//            logger.log(Level.INFO, logMessage);
+            System.out.println("Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")");
 
             // check for collisions
             for (Robot nonActivatedRobot : nonActivatedRobotsList) {
 
                 if (robot.x == nonActivatedRobot.x && robot.y == nonActivatedRobot.y) {
-                    String touchMessage = "Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")";
-                    logger.log(Level.INFO, touchMessage);
-                    //System.out.println("Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")");
+                    activatedLocation.add(nonActivatedRobot);
+
+//                    String touchMessage = "Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")";
+//                    logger.log(Level.INFO, touchMessage);
+                    System.out.println("Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")");
                 }
 
             }
         }
-        return robot;
+        activatedLocation.add(robot);
+
+        return activatedLocation;
 
     }
 
