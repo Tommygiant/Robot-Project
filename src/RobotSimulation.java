@@ -100,9 +100,9 @@ public class RobotSimulation {
 
 
             robot.move(move, n);
-//            String logMessage = "Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")";
-//            logger.log(Level.INFO, logMessage);
-            System.out.println("Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")");
+            String logMessage = "Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")";      
+            logger.log(Level.INFO, logMessage);
+            // System.out.println("Robot " + robotIndex + " moved to (" + robot.x + ", " + robot.y + ")");
 
             // check for collisions
             for (Robot nonActivatedRobot : nonActivatedRobotsList) {
@@ -110,9 +110,9 @@ public class RobotSimulation {
                 if (robot.x == nonActivatedRobot.x && robot.y == nonActivatedRobot.y) {
                     activatedLocation.add(nonActivatedRobot);
 
-//                    String touchMessage = "Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")";
-//                    logger.log(Level.INFO, touchMessage);
-                    System.out.println("Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")");
+                    String touchMessage = "Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")";
+                    logger.log(Level.INFO, touchMessage);
+                    // System.out.println("Robot " + robotIndex + " touched the non-activated robot at (" + robot.x + ", " + robot.y + ")");
                 }
 
             }
