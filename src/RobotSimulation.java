@@ -21,19 +21,7 @@ public class RobotSimulation {
 
         // activated robot initial position
         String initialPosition = scanner.nextLine();
-//        String[] activatedRobots = initialPosition.split(" ");
-//        List<Robot> activatedRobotsList = new ArrayList<>();
 
-//        for (String position : activatedRobots) {
-//            String[] parts = position.split(",");
-//            int startX = Integer.parseInt(parts[0]);
-//            int startY = Integer.parseInt(parts[1]);
-//            if (startX >= n || startY >= n){
-//                System.out.println("Invalid starting position. The starting position must be within the grid boundaries.");
-//                return;
-//            }
-//            activatedRobotsList.add(new Robot(startX, startY));
-//        }
         String[] activatedRobots = initialPosition.split(",");
 
         int startX = Integer.parseInt(activatedRobots[0]);
@@ -65,38 +53,21 @@ public class RobotSimulation {
 
         List<Robot> activatedRobotsPosition = new ArrayList<>();
 
-//        for (Robot activatedRobotInitialPosition : activatedRobotsList){
-//
-//            List<Robot> activatedRobotFinalPosition = RobotSimulationProcess(n, activatedRobotInitialPosition, nonActivatedRobotsList, movement);
-//            robotIndex++;
-//
-//            int len = activatedRobotFinalPosition.size();//3
-//            activatedRobotsList.remove(activatedRobotInitialPosition);
-//            System.out.println(activatedRobotsList);
-//            activatedRobotsList.add(activatedRobotFinalPosition.get(0));
-//            System.out.println(activatedRobotsList);
-////            nonActivatedRobotsList.remove(activatedRobotFinalPosition.get(0));
-//
-////            for (int i = 0; i < len-1; i++){
-////                activatedRobotsList.add(activatedRobotFinalPosition.get(i));
-////                nonActivatedRobotsList.remove(activatedRobotFinalPosition.get(i));
-////            }
-//            activatedRobotsPosition.add(activatedRobotFinalPosition.get(len-1));
-//        }
         while (!activatedRobotsList.isEmpty()){
             Robot activatedRobotInitialPosition = activatedRobotsList.get(0);
+            
             activatedRobotsList.remove(activatedRobotInitialPosition);
+            
             List<Robot> activatedRobotFinalPosition = RobotSimulationProcess(n, activatedRobotInitialPosition, nonActivatedRobotsList, movement);
             robotIndex++;
 
-            int len = activatedRobotFinalPosition.size();//3
+            int len = activatedRobotFinalPosition.size();
             for (int i = 0; i < len-1; i++){
                 activatedRobotsList.add(activatedRobotFinalPosition.get(i));
                 nonActivatedRobotsList.remove(activatedRobotFinalPosition.get(i));
             }
             activatedRobotsPosition.add(activatedRobotFinalPosition.get(len-1));
-//            System.out.println(activatedRobotsPosition);
-//            System.out.println(activatedRobotsList);
+
 
         }
 
