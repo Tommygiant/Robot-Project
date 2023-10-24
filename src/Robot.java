@@ -9,16 +9,16 @@ public class Robot {
 
     public void move(char direct, int n) {
         switch (direct) {
-            case 'L':
+            case 'R':
                 x = (x + 1) % n;
                 break;
-            case 'R':
+            case 'L':
                 x = (x - 1 + n) % n;
                 break;
-            case 'D':
+            case 'U':
                 y = (y - 1 + n) % n;
                 break;
-            case 'U':
+            case 'D':
                 y = (y + 1) % n;
                 break;
         }
